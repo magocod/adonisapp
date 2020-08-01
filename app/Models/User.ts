@@ -51,7 +51,12 @@ export default class User extends BaseModel {
   @column()
   public is_active: boolean
 
-  @manyToMany(() => Role)
+  @manyToMany(() => Role, {
+    localKey: 'id',
+    pivotForeignKey: 'user_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'role_id',
+  })
   public roles: ManyToMany<typeof Role>
 
 }
