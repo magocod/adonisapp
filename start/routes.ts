@@ -26,5 +26,14 @@ Route.get('/', async () => {
 
 // auth module
 
+Route.group(() => {
+  // public
+  Route.post('login', 'auth/AuthController.login');
+
+  Route.get('profile', 'auth/AuthController.currentUser').middleware(['auth']);
+  Route.get('logout', 'auth/AuthController.logout').middleware(['auth']);
+
+}).prefix('api/auth');
+
 // roles
 Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:moderator,admin'])
