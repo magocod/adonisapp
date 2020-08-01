@@ -41,4 +41,6 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
+	auth: 'Adonis/Auth/Middleware',
+	acl: 'App/Middleware/Acl'
 })
