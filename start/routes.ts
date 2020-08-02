@@ -36,4 +36,4 @@ Route.group(() => {
 }).prefix('api/auth');
 
 // roles
-Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:moderator,admin'])
+Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:root,admin'])

@@ -18,7 +18,7 @@ export type GenericResponseData = GenericResponse<any>;
 /**
  *
  */
-export interface ExceptionResponse {
+export interface GenericExceptionResponse {
   message: string;
   err_message: string;
   details?: string;

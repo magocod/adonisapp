@@ -1,5 +1,12 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
+
+import {
+  schema,
+  rules,
+  validator,
+} from '@ioc:Adonis/Core/Validator'
+
 import {
   column,
   beforeSave,
@@ -7,6 +14,8 @@ import {
   manyToMany,
   ManyToMany
 } from '@ioc:Adonis/Lucid/Orm'
+
+import { AuthCredentials, ModelValidationResult } from '../interfaces';
 
 import Role from 'App/Models/Role'
 
@@ -58,5 +67,58 @@ export default class User extends BaseModel {
     pivotRelatedForeignKey: 'role_id',
   })
   public roles: ManyToMany<typeof Role>
+
+  // validations
+
+  /**
+   * [loginRules description]
+   * 
+   * schemea user, basic credentiales
+   * email, password 
+   *
+   */
+  public static loginRules() {
+    return schema.create(
+      {
+        email: schema.string({}, [
+          rules.email()
+        ]),
+        password: schema.string(),
+      }
+    )
+  }
+
+  /**
+   * [validateLogin description]
+   *
+   * validate user basic credentiales
+   * email, password
+   *
+   * Note: take any exception and return method execution as successful
+   *
+   */
+  public static async validateLogin(values: AuthCredentials): Promise<ModelValidationResult<AuthCredentials>> {
+    try {
+      const validatedData = await validator.validate({
+        schema: this.loginRules(),
+        data: values,
+      })
+      return {
+        is_valid: true,
+        data: validatedData,
+        messages: [],
+        exception: '',
+      };
+    } catch (error) {
+      // console.log(error.messages)
+      // return error.messages;
+      return {
+        is_valid: false,
+        data: {} as AuthCredentials,
+        messages: error.messages,
+        exception: error.message,
+      };
+    }
+  }
 
 }

@@ -11,16 +11,34 @@ export default class AuthController {
 	 *
 	 */
 	public async login ({ request, auth, response }: HttpContextContract) {
+
+    // don't catch exception
+    const validatedData = await request.validate({
+      schema: User.loginRules(),
+    })
+
 		try {
-			const email = request.input('email')
-	    const password = request.input('password')
+
+      // const validatedData = await User.validateLogin(request.only(['email', 'password']));
+      // // console.log(validatedData);
+
+      // if (!validatedData.is_valid) {
+      //   return response.status(422).json({
+      //     errors: validatedData.messages,
+      //     exception: validatedData.exception,
+      //   });
+      // }
+      // return validatedData;
 
       const userInstance = await User
       .query()
-      .where('email', email)
+      .where('email', validatedData.email)
       .first();
 
-	    const token = await auth.use('api').attempt(email, password)
+	    const token = await auth.use('api').attempt(
+        validatedData.email,
+        validatedData.password
+      );
 	    // return token.toJSON()
 
       return response.status(200).json({

@@ -1,8 +1,19 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
+import Role from 'App/Models/Role'
+
 export default class RolesController {
+
+  /**
+   * [index description]
+   * Get all roles
+   */
   public async index (ctx: HttpContextContract) {
-    console.log(ctx)
+    const roles = await Role.all()
+    return ctx.response.status(200).json({
+      data: roles,
+      message: 'operacion exitosa'
+    })
   }
 
   public async create (ctx: HttpContextContract) {
