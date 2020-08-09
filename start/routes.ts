@@ -36,5 +36,8 @@ Route.group(() => {
 
 }).prefix('api/auth');
 
+// users
+Route.get('api/users', 'auth/UserController.index').middleware(['auth', 'acl:root,admin'])
+
 // roles
 Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:root,admin'])

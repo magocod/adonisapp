@@ -13,7 +13,8 @@ import {
   beforeSave,
   BaseModel,
   manyToMany,
-  ManyToMany
+  ManyToMany,
+  scope
 } from '@ioc:Adonis/Lucid/Orm'
 
 import { AuthCredentials, ModelValidationResult } from '../interfaces';
@@ -146,5 +147,13 @@ export default class User extends BaseModel {
       }
     )
   }
+
+  /**
+   * [scope description]
+   * @param {[type]} (query) => {    query.where('publishedOn', '<=', DateTime.utc().toSQLDate())  } [description]
+   */
+  public static allRelationships = scope((query) => {
+    query.preload('roles' as any)
+  })
 
 }
