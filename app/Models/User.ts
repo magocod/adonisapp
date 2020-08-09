@@ -156,4 +156,20 @@ export default class User extends BaseModel {
     query.preload('roles' as any)
   })
 
+  /**
+   * [getRolesSlug description]
+   */
+  async getRolesSlug() {
+    const user = await User.query().where('id', this.id).preload('roles').first()
+
+    if (user === null) {
+      return []
+    }
+
+    return user.roles.map((role) => {
+      return role.slug;
+    })
+
+  }
+
 }

@@ -33,6 +33,7 @@ export default class AuthController {
       const userInstance = await User
       .query()
       .where('email', validatedData.email)
+      .apply((scopes) => scopes.allRelationships())
       .first();
 
 	    const token = await auth.use('api').attempt(
@@ -92,6 +93,7 @@ export default class AuthController {
       const userData = await User
       .query()
       .where('id', user.id)
+      .apply((scopes) => scopes.allRelationships())
       .first();
 
       return response.status(200).json({
@@ -114,11 +116,7 @@ export default class AuthController {
    */
   async updateProfile({ auth, request, response }: HttpContextContract) {
 
-    const user = await auth.user;
-
-    if (user === undefined) {
-      return response.status(401);
-    }
+    const user = await auth.authenticate();
 
     // don't catch exception
     const validatedData = await request.validate({
@@ -135,6 +133,7 @@ export default class AuthController {
       const userResponse = await User
       .query()
       .where('id', user.id)
+      .apply((scopes) => scopes.allRelationships())
       .first();
 
       return response.status(200).json({
