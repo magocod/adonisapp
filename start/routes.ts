@@ -31,6 +31,7 @@ Route.group(() => {
   Route.post('login', 'auth/AuthController.login');
 
   Route.get('profile', 'auth/AuthController.currentUser').middleware(['auth']);
+  Route.post('profile', 'auth/AuthController.updateProfile').middleware(['auth']);
   Route.get('logout', 'auth/AuthController.logout').middleware(['auth']);
 
 }).prefix('api/auth');

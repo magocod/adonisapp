@@ -5,6 +5,7 @@ import {
   schema,
   rules,
   validator,
+  // DbRowCheckOptions
 } from '@ioc:Adonis/Core/Validator'
 
 import {
@@ -73,7 +74,7 @@ export default class User extends BaseModel {
   /**
    * [loginRules description]
    * 
-   * schemea user, basic credentiales
+   * schema user, basic credentiales
    * email, password 
    *
    */
@@ -119,6 +120,31 @@ export default class User extends BaseModel {
         exception: error.message,
       };
     }
+  }
+
+  /**
+   * [updateProfileRules description]
+   * 
+   * schema user, update profile 
+   *
+   */
+  public static updateProfileRules(userId: number) {
+    return schema.create(
+      {
+        first_name: schema.string(),
+        last_name: schema.string(),
+        email: schema.string({}, [
+          rules.email(),
+          rules.unique({
+            table: 'users',
+            column: 'email',
+            whereNot: {
+              id: userId
+            }
+          })
+        ])
+      }
+    )
   }
 
 }

@@ -109,4 +109,47 @@ export default class AuthController {
     }
   }
 
+  /**
+   * [updateProfile description]
+   */
+  async updateProfile({ auth, request, response }: HttpContextContract) {
+
+    const user = await auth.user;
+
+    if (user === undefined) {
+      return response.status(401);
+    }
+
+    // don't catch exception
+    const validatedData = await request.validate({
+      schema: User.updateProfileRules(user.id),
+    })
+
+    try {
+
+      user.email = validatedData.email;
+      user.first_name = validatedData.first_name;
+      user.last_name = validatedData.last_name;
+      await user.save();
+
+      const userResponse = await User
+      .query()
+      .where('id', user.id)
+      .first();
+
+      return response.status(200).json({
+        message: "Perfil de usuario actualizado",
+        data: userResponse
+      });
+    } catch (error) {
+      return response.status(
+        error.status === undefined ? 400 : error.status
+      ).json({
+        message: 'Error actualizando perfil de usuario',
+        details: "",
+        err_message: error.message
+      });
+    }
+  }
+
 }
