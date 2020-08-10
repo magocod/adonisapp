@@ -39,6 +39,9 @@ Route.group(() => {
 // users
 Route.get('api/users', 'auth/UserController.index').middleware(['auth', 'acl:root,admin'])
 Route.get('api/users/:id', 'auth/UserController.show').middleware(['auth', 'acl:root,admin'])
+Route.post('api/users', 'auth/UserController.store').middleware(['auth', 'acl:root,admin'])
+Route.put('api/users/:id', 'auth/UserController.show').middleware(['auth', 'acl:root,admin'])
+Route.delete('api/users/:id', 'auth/UserController.show').middleware(['auth', 'acl:root,admin'])
 
 // roles
 Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:root,admin'])

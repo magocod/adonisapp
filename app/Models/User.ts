@@ -149,6 +149,50 @@ export default class User extends BaseModel {
   }
 
   /**
+   * [createRules description]
+   *
+   */
+  public static createRules() {
+    return schema.create(
+      {
+        first_name: schema.string(),
+        last_name: schema.string(),
+        email: schema.string({}, [
+          rules.email(),
+          rules.unique({
+            table: 'users',
+            column: 'email',
+          })
+        ]),
+        password: schema.string()
+      }
+    )
+  }
+
+  /**
+   * [updateRules description]
+   *
+   */
+  public static updateRules(userId: number) {
+    return schema.create(
+      {
+        first_name: schema.string(),
+        last_name: schema.string(),
+        email: schema.string({}, [
+          rules.email(),
+          rules.unique({
+            table: 'users',
+            column: 'email',
+            whereNot: {
+              id: userId
+            }
+          })
+        ])
+      }
+    )
+  }
+
+  /**
    * [scope description]
    * @param {[type]} (query) => {    query.where('publishedOn', '<=', DateTime.utc().toSQLDate())  } [description]
    */

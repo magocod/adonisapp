@@ -20,12 +20,61 @@ export default class UserController {
     });
   }
 
-  public async create (ctx: HttpContextContract) {
-    console.log(ctx)
-  }
+  /**
+   * [store description]
+   *
+   * Create/save a new user.
+   * POST users
+   *
+   */
+  public async store ({ request, response }: HttpContextContract) {
 
-  public async store (ctx: HttpContextContract) {
-    console.log(ctx)
+    // don't catch exception
+    await request.validate({
+      schema: User.createRules(),
+    })
+
+    try {
+
+      const userData = request.only([
+        'email',
+        'password',
+        'first_name',
+        'last_name',
+      ]);
+      // console.log(userData);
+      const roleId = 3; // basic user
+
+      const userInstance = await User.create({
+        ...userData,
+        role_id: roleId,
+        status: true,
+        is_active: true
+      });
+      await userInstance.related('roles').attach([roleId])
+
+      const userResponse = await User
+      .query()
+      .where(
+        'id', userInstance.id
+      )
+      .apply((scopes) => scopes.allRelationships())
+      .first();
+
+      return response.status(201).json({
+        message: 'Usuario registrado',
+        data: userResponse
+      });
+
+    } catch (error) {
+      return response.status(error.status === undefined ? 400 : error.status).json({
+        error: {
+          message: "Error registrando usuario",
+          details: "",
+          err_message: error.message
+        }
+      });
+    }
   }
 
   /**
@@ -63,12 +112,81 @@ export default class UserController {
     }
   }
 
-  public async edit (ctx: HttpContextContract) {
-    console.log(ctx)
-  }
+  /**
+   * [update description]
+   *
+   * Update user details.
+   * PUT or PATCH users/:id
+   *
+   */
+  public async update ({ params, request, response, auth }: HttpContextContract) {
 
-  public async update (ctx: HttpContextContract) {
-    console.log(ctx)
+    // don't catch exception
+
+    const userInstance = await User.findOrFail(params.id);
+    await request.validate({
+      schema: User.updateRules(userInstance.id),
+    })
+
+    try {
+
+      const roles = await userInstance.getRolesSlug();
+
+      if (roles.includes('root')) {
+        // You do not have permission to edit this user
+        return response.status(403).json({
+          message: 'No tienes permiso para editar este usuario',
+          details: "Solo un usuario root se puede modificar a si mismo",
+          err_message: ""
+        });
+      }
+
+      const authUser = await auth.authenticate();
+
+      const authRoles = await authUser.getRolesSlug()
+      if (roles.includes('admin') && authRoles.includes('root') === false) {
+        return response.status(
+          403
+        ).json({
+          message: 'No tienes permiso para editar este usuario',
+          details: "Un usuario administrador, no puede modificar otro administrador",
+          err_message: ""
+        }); 
+      }
+
+      const userData = request.only([
+        'email',
+        'first_name',
+        'last_name',
+      ]);
+      // console.log(userData);
+
+      userInstance.email = userData.email;
+      userInstance.first_name = userData.first_name;
+      userInstance.last_name = userData.last_name;
+      
+      await userInstance.save();
+
+      const userResponse = await User.query().where(
+        'id', userInstance.id
+      )
+      .apply((scopes) => scopes.allRelationships())
+      .first();
+
+      return response.status(200).json({
+        message: 'Usuario modificado',
+        data: userResponse
+      });
+
+    } catch (error) {
+      return response.status(error.status === undefined ? 400 : error.status).json({
+        error: {
+          message: "Error modificando usuario",
+          details: "",
+          err_message: error.message
+        }
+      });
+    }
   }
 
   /**
