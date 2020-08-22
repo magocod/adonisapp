@@ -9,3 +9,11 @@ Install dependencies
 ```bash
 npm install
 ```
+
+### Run tests
+
+Run all tests
+
+```
+npm run test
+```
