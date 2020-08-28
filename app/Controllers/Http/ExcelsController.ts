@@ -8,7 +8,8 @@ export async function ReadXlsx() {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(Application.tmpPath('uploads/paso_2_modelos_telefono.xlsx'));
   // console.log(workbook)
-  const worksheet = workbook.getWorksheet('Hoja1')
+  // const worksheet = workbook.getWorksheet('Hoja1')
+  const worksheet = workbook.getWorksheet(1);
 
   const rowHeader = worksheet.getRow(1);
   console.log(rowHeader.values);
@@ -29,9 +30,11 @@ export async function ReadXlsx() {
 export async function ReadXlsxV2() {
   const workbook = XLSX.readFile(Application.tmpPath('uploads/paso_2_modelos_telefono.xlsx'));
   const first_sheet_name = workbook.SheetNames[0];
+  console.log(workbook)
   const worksheet = workbook.Sheets[first_sheet_name]
-  const arraySheet = XLSX.utils.sheet_to_json(worksheet)
-  console.log(arraySheet)
+  // const arraySheet = XLSX.utils.sheet_to_json(worksheet)
+  // console.log(arraySheet)
+  console.log(worksheet)
 }
 
 export default class ExcelsController {
