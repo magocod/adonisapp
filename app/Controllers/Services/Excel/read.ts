@@ -8,5 +8,3 @@ export async function ReadXlsx() {
 	await workbook.xlsx.readFile('brand.xlsx');
 	console.log(workbook)
 }
-
-ReadXlsx()
