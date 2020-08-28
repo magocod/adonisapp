@@ -45,3 +45,9 @@ Route.delete('api/users/:id', 'auth/UserController.show').middleware(['auth', 'a
 
 // roles
 Route.get('api/roles', 'auth/RolesController.index').middleware(['auth', 'acl:root,admin'])
+
+// excel
+Route.group(() => {
+	Route.get('test', 'ExcelsController.test')
+	Route.post('v1', 'ExcelsController.readV1')
+}).prefix('api/excel');
