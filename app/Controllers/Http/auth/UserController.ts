@@ -68,11 +68,9 @@ export default class UserController {
 
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: "Error registrando usuario",
-          details: "",
-          err_message: error.message
-        }
+        message: "Error registrando usuario",
+        details: "",
+        err_message: error.message
       });
     }
   }
@@ -103,11 +101,9 @@ export default class UserController {
     } catch (error) {
       console.log(error)
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: "Error buscando usuario",
-          details: "",
-          err_message: error.message
-        }
+        message: "Error buscando usuario",
+        details: "",
+        err_message: error.message
       });
     }
   }
@@ -180,11 +176,9 @@ export default class UserController {
 
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: "Error modificando usuario",
-          details: "",
-          err_message: error.message
-        }
+        message: "Error modificando usuario",
+        details: "",
+        err_message: error.message
       });
     }
   }
@@ -232,11 +226,9 @@ export default class UserController {
 
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: "Error eliminando usuario",
-          details: "",
-          err_message: error.message
-        }
+        message: "Error eliminando usuario",
+        details: "",
+        err_message: error.message
       });
     }
   }

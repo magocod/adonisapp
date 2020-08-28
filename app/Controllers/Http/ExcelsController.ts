@@ -62,11 +62,9 @@ export default class ExcelsController {
 
     if (!fileXlsx) {
       return ctx.response.status(400).json({
-        error: {
-          message: 'Please upload file',
-          details: '',
-          err_message: ''
-        }
+        message: 'Please upload file',
+        details: '',
+        err_message: ''
       });
     }
 
