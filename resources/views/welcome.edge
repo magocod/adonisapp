@@ -1,0 +1,28 @@
+
+<body>
+
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+
+<script>
+  const socket = io("ws://localhost:3333", {
+    query: {
+      token: Math.random().toString(36).substring(7)
+    }
+  })
+
+  socket.on('connect', function (data) {
+    socket.emit('client:info', {
+      user_id: Math.floor(Math.random() * 101)
+    });
+  });
+
+  socket.on('news', (data) => {
+    console.log('socket', data)
+    socket.emit('my other event', { my: 'data' })
+  })
+  socket.on('new:user', (data) => {
+    console.log('socket', data)
+  })
+</script>
+
+</body>

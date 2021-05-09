@@ -24,6 +24,12 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+Route.get('/socket', async ({ view }) => {
+  return view.render('welcome')
+})
+
+Route.resource('/io', 'IosController')
+
 Route.group(() => {
   // public
   Route.post('login', 'AuthController.login')
