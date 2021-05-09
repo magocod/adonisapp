@@ -32,3 +32,7 @@ Route.group(() => {
   Route.post('update_profile', 'AuthController.updateProfile').middleware(['auth'])
   Route.post('logout', 'AuthController.logout').middleware(['auth'])
 }).prefix('api/auth')
+
+Route.group(() => {
+  Route.get('all', 'RolesController.index').middleware(['auth'])
+}).prefix('api/roles')

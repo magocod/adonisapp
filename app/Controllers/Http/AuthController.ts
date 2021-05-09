@@ -16,7 +16,10 @@ export default class AuthController {
     })
 
     try {
-      const userInstance = await User.query().where('email', validatedData.email).first()
+      const userInstance = await User.query()
+        .apply((scopes) => scopes.profile())
+        .where('email', validatedData.email)
+        .first()
 
       const token = await auth.use('api').attempt(validatedData.email, validatedData.password)
       // return token.toJSON()
@@ -68,7 +71,10 @@ export default class AuthController {
     try {
       const user = await auth.authenticate()
 
-      const userData = await User.query().where('id', user.id).first()
+      const userData = await User.query()
+        .apply((scopes) => scopes.profile())
+        .where('id', user.id)
+        .first()
 
       return response.status(200).json({
         message: 'authenticated user',
@@ -104,6 +110,7 @@ export default class AuthController {
       await user.save()
 
       const userResponse = await User.query()
+        .apply((scopes) => scopes.profile())
         .where('id', user.id)
         .first()
 
