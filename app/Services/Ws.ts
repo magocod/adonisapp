@@ -8,7 +8,7 @@ class Ws {
   public boot() {
     /**
      * Ignore multiple calls to the boot method
-     // */
+     */
     if (this.booted) {
       return
     }
