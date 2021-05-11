@@ -85,7 +85,7 @@ export default class User extends BaseModel {
   /**
    * user profile, preload
    */
-  public static profile = scope((query) => {
+  public static allRelationships = scope((query) => {
     query.preload('roles' as any)
   })
 }

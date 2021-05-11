@@ -17,7 +17,7 @@ export default class AuthController {
 
     try {
       const userInstance = await User.query()
-        .apply((scopes) => scopes.profile())
+        .apply((scopes) => scopes.allRelationships())
         .where('email', validatedData.email)
         .first()
 
@@ -72,7 +72,7 @@ export default class AuthController {
       const user = await auth.authenticate()
 
       const userData = await User.query()
-        .apply((scopes) => scopes.profile())
+        .apply((scopes) => scopes.allRelationships())
         .where('id', user.id)
         .first()
 
@@ -110,7 +110,7 @@ export default class AuthController {
       await user.save()
 
       const userResponse = await User.query()
-        .apply((scopes) => scopes.profile())
+        .apply((scopes) => scopes.allRelationships())
         .where('id', user.id)
         .first()
 
