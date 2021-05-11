@@ -9,6 +9,7 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "test": "node -r @adonisjs/assembler/build/register japaFile.ts",
+    "coverage": "nyc npm run test",
     "test_functional": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/**/*.spec.ts",
     "test_unit": "node -r @adonisjs/assembler/build/register japaFile.ts test/unit/**/*.spec.ts",
     "test_unique": "node -r @adonisjs/assembler/build/register japaFile.ts test/unit/example.spec.ts"
@@ -26,6 +27,7 @@
     "get-port": "^5.1.1",
     "japa": "^3.1.1",
     "jsdom": "^16.5.3",
+    "nyc": "^15.1.0",
     "pino-pretty": "^4.7.1",
     "prettier": "^2.2.1",
     "supertest": "^6.1.3",
