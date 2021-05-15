@@ -3,6 +3,7 @@ import supertest from 'supertest'
 
 import { BASE_URL } from '../../common'
 import { generate_user } from '../../fixtures/users'
+import { validate_form } from '../../fixtures/validation'
 
 import User from 'App/Models/User'
 
@@ -48,29 +49,20 @@ test.group('Auth user login', () => {
       emails: false,
       password: [],
     }
+    const validation = await validate_form(User.login_rules, request)
     const response = await supertest(BASE_URL).post('/api/auth/login').send(request).expect(422)
     // console.log(response.body)
     assert.deepEqual(response.body, {
-      errors: [
-        {
-          rule: 'required',
-          field: 'email',
-          message: 'required validation failed',
-        },
-        {
-          rule: 'string',
-          field: 'password',
-          message: 'string validation failed',
-        },
-      ],
+      errors: validation.errors,
     })
   })
 
   test('Logout Successful', async (assert) => {
-    const { token } = await generate_user()
+    const { authHeaderVal } = await generate_user()
     const response = await supertest(BASE_URL)
       .post('/api/auth/logout')
-      .set('Authorization', `Bearer ${token.token}`)
+      // .set('Authorization', `Bearer ${token.token}`)
+      .set('Authorization', authHeaderVal)
       .expect(200)
     // console.log(response.body)
     assert.deepEqual(response.body, { data: null, message: 'Successfully Logged Out' })

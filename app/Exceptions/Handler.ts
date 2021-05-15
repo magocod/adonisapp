@@ -27,7 +27,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
      * Self handle the validation exception
      */
     if (error.code === 'E_VALIDATION_FAILURE') {
-      return ctx.response.status(422).send(error.messages)
+      return ctx.response.status(422).json(error.messages)
     }
 
     return ctx.response.status(error.status === undefined ? 400 : error.status).json({

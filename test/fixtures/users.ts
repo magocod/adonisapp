@@ -1,5 +1,5 @@
 import { UserFactory } from 'Database/factories'
-import { UserRoleIds } from '../common'
+import { UserRoleIds, API_KEY } from '../common'
 import Application from '@ioc:Adonis/Core/Application'
 
 /**
@@ -30,5 +30,5 @@ export async function generate_user(roleIds = [UserRoleIds.USER]) {
   // console.log(token)
 
   // ...other
-  return { user, token }
+  return { user, token, authHeaderVal: `${API_KEY} ${token.token}` }
 }
