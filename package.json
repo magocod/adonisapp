@@ -11,6 +11,7 @@
     "test": "node -r @adonisjs/assembler/build/register japaFile.ts",
     "coverage": "nyc npm run test",
     "test_functional": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/**/*.spec.ts",
+    "test_auth": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/auth/**/*.spec.ts",
     "test_unit": "node -r @adonisjs/assembler/build/register japaFile.ts test/unit/**/*.spec.ts",
     "test_unique": "node -r @adonisjs/assembler/build/register japaFile.ts test/unit/example.spec.ts"
   },

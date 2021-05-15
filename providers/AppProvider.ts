@@ -5,6 +5,9 @@ export default class AppProvider {
 
   public register() {
     // Register your own bindings
+    this.app.container.bind('ChanceFaker', () => {
+      return 10
+    })
   }
 
   public async boot() {

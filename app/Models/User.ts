@@ -1,9 +1,19 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, manyToMany, ManyToMany, scope } from '@ioc:Adonis/Lucid/Orm'
+import {
+  column,
+  beforeSave,
+  BaseModel,
+  manyToMany,
+  ManyToMany,
+  scope,
+  hasMany,
+  HasMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import { rules, schema } from '@ioc:Adonis/Core/Validator'
 
 import Role from 'App/Models/Role'
+import ApiToken from 'App/Models/ApiToken'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -50,6 +60,9 @@ export default class User extends BaseModel {
     pivotRelatedForeignKey: 'role_id',
   })
   public roles: ManyToMany<typeof Role>
+
+  @hasMany(() => ApiToken)
+  public api_tokens: HasMany<typeof ApiToken>
 
   /**
    * login validation schema validator
