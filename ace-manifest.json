@@ -1,5 +1,26 @@
 {
   "commands": {
+    "create:user": {
+      "settings": {},
+      "commandPath": "./commands/CreateUser",
+      "commandName": "create:user",
+      "description": "Create a new user",
+      "args": [],
+      "aliases": [],
+      "flags": []
+    },
+    "greet": {
+      "settings": {
+        "loadApp": false,
+        "stayAlive": false
+      },
+      "commandPath": "./commands/Greet",
+      "commandName": "greet",
+      "description": "",
+      "args": [],
+      "aliases": [],
+      "flags": []
+    },
     "dump:rcfile": {
       "settings": {},
       "commandPath": "@adonisjs/core/build/commands/DumpRc",
