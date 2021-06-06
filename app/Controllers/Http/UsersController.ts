@@ -51,11 +51,9 @@ export default class UsersController {
       })
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: 'Error registering user',
-          details: '',
-          err_message: error.message,
-        },
+        message: 'Error registering user',
+        details: '',
+        err_message: error.message,
       })
     }
   }
@@ -75,11 +73,9 @@ export default class UsersController {
     } catch (error) {
       // console.log(error)
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: 'User search error',
-          details: '',
-          err_message: error.message,
-        },
+        message: 'User search error',
+        details: '',
+        err_message: error.message,
       })
     }
   }
@@ -129,11 +125,9 @@ export default class UsersController {
       })
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: 'Error modifying user',
-          details: '',
-          err_message: error.message,
-        },
+        message: 'Error modifying user',
+        details: '',
+        err_message: error.message,
       })
     }
   }
@@ -174,11 +168,9 @@ export default class UsersController {
       })
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
-        error: {
-          message: 'Error deleting user',
-          details: '',
-          err_message: error.message,
-        },
+        message: 'Error deleting user',
+        details: '',
+        err_message: error.message,
       })
     }
   }
