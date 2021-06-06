@@ -44,3 +44,9 @@ Route.resource('/api/roles', 'RolesController')
   .middleware({
     '*': ['auth', 'acl:root,admin'],
   })
+
+Route.resource('/api/users', 'UsersController')
+  .apiOnly()
+  .middleware({
+    '*': ['auth', 'acl:root,admin'],
+  })

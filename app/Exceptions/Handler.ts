@@ -23,6 +23,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
+    // console.log(error)
     /**
      * Self handle the validation exception
      */

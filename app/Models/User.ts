@@ -96,9 +96,63 @@ export default class User extends BaseModel {
   }
 
   /**
+   *
+   */
+  public static get create_rules() {
+    return schema.create({
+      first_name: schema.string(),
+      last_name: schema.string(),
+      email: schema.string({}, [
+        rules.email(),
+        rules.unique({
+          table: 'users',
+          column: 'email',
+        }),
+      ]),
+      password: schema.string(),
+    })
+  }
+
+  /**
+   *
+   * @param userId
+   */
+  public static updateRules(userId: number) {
+    return schema.create({
+      first_name: schema.string(),
+      last_name: schema.string(),
+      email: schema.string({}, [
+        rules.email(),
+        rules.unique({
+          table: 'users',
+          column: 'email',
+          whereNot: {
+            id: userId,
+          },
+        }),
+      ]),
+    })
+  }
+
+  /**
    * user profile, preload
    */
   public static allRelationships = scope((query) => {
     query.preload('roles' as any)
   })
+
+  /**
+   *
+   */
+  public async getRolesSlug(): Promise<string[]> {
+    const user = await User.query().where('id', this.id).preload('roles').first()
+
+    if (user === null) {
+      return []
+    }
+
+    return user.roles.map((role) => {
+      return role.slug
+    })
+  }
 }

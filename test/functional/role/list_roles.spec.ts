@@ -13,7 +13,7 @@ test.group('List roles', () => {
       .set('Authorization', authHeaderVal)
       .expect(200)
     const roles = await Role.all()
-    const rolesJson = roles.map((post) => post.serialize())
+    const rolesJson = roles.map((r) => r.serialize())
     // console.log(response.body)
     assert.equal(response.body.message, 'successful operation')
     assert.deepEqual(response.body.data, rolesJson)

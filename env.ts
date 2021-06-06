@@ -32,4 +32,5 @@ export default Env.rules({
   MYSQL_USER: Env.schema.string(),
   MYSQL_PASSWORD: Env.schema.string.optional(),
   MYSQL_DB_NAME: Env.schema.string(),
+  PAGINATION_PAGE_SIZE: Env.schema.number(),
 })
