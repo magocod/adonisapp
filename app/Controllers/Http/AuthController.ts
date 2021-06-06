@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 import User from 'App/Models/User'
+import { ApiErrorResponseBody, ApiResponseBody } from 'adonis/app'
 
 export default class AuthController {
   /**
@@ -30,14 +31,14 @@ export default class AuthController {
           user: userInstance,
           access_token: token,
         },
-      })
+      } as ApiResponseBody)
     } catch (error) {
       // console.log(error);
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Email or password error',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -52,13 +53,13 @@ export default class AuthController {
       return response.status(200).json({
         data: null,
         message: 'Successfully Logged Out',
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Logout error',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -79,13 +80,13 @@ export default class AuthController {
       return response.status(200).json({
         message: 'authenticated user',
         data: userData,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Error retrieving user',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -117,13 +118,13 @@ export default class AuthController {
       return response.status(200).json({
         message: 'Updated user profile',
         data: userResponse,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Error updating user profile',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 }

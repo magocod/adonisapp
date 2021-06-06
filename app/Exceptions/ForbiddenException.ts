@@ -1,5 +1,6 @@
 import { Exception } from '@adonisjs/core/build/standalone'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { ApiErrorResponseBody } from 'adonis/app'
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,6 @@ export default class ForbiddenException extends Exception {
       message: 'Access forbidden. You are not allowed to this resource.',
       details: 'current user does not have required role',
       err_message: error.message,
-    })
+    } as ApiErrorResponseBody)
   }
 }

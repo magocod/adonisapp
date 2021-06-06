@@ -1,7 +1,6 @@
 import { BaseCommand } from '@adonisjs/core/build/standalone'
 
 export default class Greet extends BaseCommand {
-
   /**
    * Command name is used to run the command
    */
@@ -26,7 +25,7 @@ export default class Greet extends BaseCommand {
     stayAlive: false,
   }
 
-  public async run () {
+  public async run() {
     this.logger.info('Hello world!')
   }
 }

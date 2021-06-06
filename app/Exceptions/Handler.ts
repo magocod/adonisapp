@@ -16,6 +16,7 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { ApiErrorResponseBody, ApiResponseBody422 } from 'adonis/app'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   constructor() {
@@ -28,7 +29,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
      * Self handle the validation exception
      */
     if (error.code === 'E_VALIDATION_FAILURE') {
-      return ctx.response.status(422).json(error.messages)
+      return ctx.response.status(422).json(error.messages as ApiResponseBody422)
     }
 
     if (error.code === 'FORBIDDEN') {
@@ -40,7 +41,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       details: 'general exception catch',
       err_message: error.message,
       // err_stack: error.stack,
-    })
+    } as ApiErrorResponseBody)
 
     /**
      * Forward rest of the exceptions to the parent class

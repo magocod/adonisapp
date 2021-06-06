@@ -3,6 +3,7 @@ import User from 'App/Models/User'
 import { UserRoleIds, UserRoleNames } from 'App/contants'
 
 import Env from '@ioc:Adonis/Core/Env'
+import { ApiErrorResponseBody, ApiResponseBody } from 'adonis/app'
 
 export default class UsersController {
   public async index({ request, response }: HttpContextContract) {
@@ -23,7 +24,7 @@ export default class UsersController {
     return response.status(200).json({
       data: users.toJSON(),
       message: 'successful operation',
-    })
+    } as ApiResponseBody)
   }
 
   public async store({ request, response }: HttpContextContract) {
@@ -48,13 +49,13 @@ export default class UsersController {
       return response.status(201).json({
         message: 'Registered user',
         data: userResponse,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Error registering user',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -69,14 +70,14 @@ export default class UsersController {
       return response.status(200).json({
         message: 'Successful operation',
         data: userResponse,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       // console.log(error)
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'User search error',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -94,7 +95,7 @@ export default class UsersController {
           message: 'You do not have permission to edit this user',
           details: 'Only a root user can modify himself',
           err_message: '',
-        })
+        } as ApiErrorResponseBody)
       }
 
       const authUser = await auth.authenticate()
@@ -105,7 +106,7 @@ export default class UsersController {
           message: 'You do not have permission to edit this user',
           details: 'An administrator user, cannot modify another administrator',
           err_message: '',
-        })
+        } as ApiErrorResponseBody)
       }
 
       userInstance.email = validation.email
@@ -122,13 +123,13 @@ export default class UsersController {
       return response.status(200).json({
         message: 'Modified user',
         data: userResponse,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Error modifying user',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 
@@ -157,7 +158,7 @@ export default class UsersController {
           message: 'You do not have permission to delete this user',
           details: 'Cannot remove root users with http queries',
           err_message: '',
-        })
+        } as ApiErrorResponseBody)
       }
 
       await userInstance.delete()
@@ -165,13 +166,13 @@ export default class UsersController {
       return response.status(200).json({
         message: 'User Deleted',
         data: null,
-      })
+      } as ApiResponseBody)
     } catch (error) {
       return response.status(error.status === undefined ? 400 : error.status).json({
         message: 'Error deleting user',
         details: '',
         err_message: error.message,
-      })
+      } as ApiErrorResponseBody)
     }
   }
 }

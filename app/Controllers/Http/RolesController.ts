@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 import Role from 'App/Models/Role'
+import { ApiResponseBody } from 'adonis/app'
 
 export default class RolesController {
   /**
@@ -12,6 +13,6 @@ export default class RolesController {
     return response.status(200).json({
       data: roles,
       message: 'successful operation',
-    })
+    } as ApiResponseBody)
   }
 }
