@@ -20,9 +20,7 @@ export default class IosController {
 
   public async show({}: HttpContextContract) {}
 
-  public async update({}: HttpContextContract) {
-
-  }
+  public async update({}: HttpContextContract) {}
 
   public async destroy({}: HttpContextContract) {}
 }

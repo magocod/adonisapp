@@ -37,8 +37,10 @@ Route.group(() => {
   Route.get('profile', 'AuthController.currentUser').middleware(['auth'])
   Route.post('update_profile', 'AuthController.updateProfile').middleware(['auth'])
   Route.post('logout', 'AuthController.logout').middleware(['auth'])
-}).prefix('api/auth')
+}).prefix('/api/auth')
 
-Route.group(() => {
-  Route.get('all', 'RolesController.index').middleware(['auth'])
-}).prefix('api/roles')
+Route.resource('/api/roles', 'RolesController')
+  .apiOnly()
+  .middleware({
+    '*': ['auth', 'acl:root,admin'],
+  })

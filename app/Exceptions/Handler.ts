@@ -30,6 +30,10 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       return ctx.response.status(422).json(error.messages)
     }
 
+    if (error.code === 'FORBIDDEN') {
+      return super.handle(error, ctx)
+    }
+
     return ctx.response.status(error.status === undefined ? 400 : error.status).json({
       message: 'Operation failed',
       details: 'general exception catch',
