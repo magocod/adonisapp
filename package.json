@@ -15,7 +15,7 @@
     "test_role": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/role/**/*.spec.ts",
     "test_user": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/user/**/*.spec.ts",
     "test_unit": "node -r @adonisjs/assembler/build/register japaFile.ts test/unit/**/*.spec.ts",
-    "test_unique": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/auth/current_user.spec.ts"
+    "test_unique": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/user/delete_user.spec.ts"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.1.1",

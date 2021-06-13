@@ -26,4 +26,11 @@ declare module 'adonis/app' {
   interface ApiResponseBody422 {
     errors: any[]
   }
+
+  /**
+   *
+   */
+  interface KnexCount {
+    total: number
+  }
 }
