@@ -50,3 +50,5 @@ Route.resource('/api/users', 'UsersController')
   .middleware({
     '*': ['auth', 'acl:root,admin'],
   })
+
+Route.get('/file/:name', 'FilesController.download')
