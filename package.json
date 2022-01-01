@@ -9,7 +9,7 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "test": "node -r @adonisjs/assembler/build/register japaFile.ts",
-    "coverage": "nyc npm run test",
+    "test:coverage": "nyc npm run test",
     "test_functional": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/**/*.spec.ts",
     "test_auth": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/auth/**/*.spec.ts",
     "test_role": "node -r @adonisjs/assembler/build/register japaFile.ts test/functional/role/**/*.spec.ts",

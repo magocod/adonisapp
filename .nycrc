@@ -1,0 +1,10 @@
+{
+  "all": true,
+  "reporter": [
+      "html",
+      "lcov",
+      "text",
+      "text-summary"
+  ],
+  "report-dir": "test/coverage"
+}
