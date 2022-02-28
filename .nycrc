@@ -6,5 +6,5 @@
       "text",
       "text-summary"
   ],
-  "report-dir": "test/coverage"
+  "report-dir": "coverage"
 }
